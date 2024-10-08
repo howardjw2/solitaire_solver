@@ -28,6 +28,13 @@ public class Deck
         }
     }
 
+    public Card pop()
+    {
+        Card a = cards.get(cards.size()-1);
+        cards.remove(cards.size()-1);
+        return a;
+    }
+
     public String toString()
     {
         String str = "";
