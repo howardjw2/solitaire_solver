@@ -26,6 +26,7 @@ public class Deck
                 cards.add(new Card(i, ii));
             }
         }
+        this.shuffle();
     }
 
     public Card pop()
@@ -33,6 +34,17 @@ public class Deck
         Card a = cards.get(cards.size()-1);
         cards.remove(cards.size()-1);
         return a;
+    }
+
+    public void shuffle()
+    {
+        for(int i = cards.size()-1; i > 0; i--)
+        {
+            int index = (int)(Math.random()*(i+1));
+            Card a = cards.get(index);
+            cards.remove(index);
+            cards.add(a);
+        }
     }
 
     public String toString()
