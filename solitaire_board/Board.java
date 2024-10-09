@@ -48,6 +48,12 @@ public class Board
         }
     }
 
+    /**
+     * takes as input the position (0-6) of the stack we want to move the card from
+     *      and the position (0-6) of the stack we want to move the card to
+     * 
+     * returns a boolean of whether the action went through or if it was impossible
+     */
     public boolean move(int source, int target)
     {
         ArrayList<Card> stack1 = stacks.get(source);
@@ -74,6 +80,72 @@ public class Board
             stack2.add(card1);
             stack1.remove(stack1.size()-1);
             return true;
+        }
+        return false;
+    }
+
+    /**
+     * takes as input the position (0-6) of the stack we want to move the card from
+     *      (the ace stack is automatically chosen based on the exposed card's suit)
+     * 
+     * returns a boolean of whether the action went through or if it was impossible
+     */
+    public boolean elevate(int source) //move a card from stack to the appropriate ace stack
+    {
+        ArrayList<Card> stack = stacks.get(source);
+        if(stack.size()==0)
+            return false;
+        Card card1 = stack.get(stack.size()-1);
+        ArrayList<Card> aceStack = aceStacks.get(card1.getSuit()-1);
+        if(aceStack.size() == 0)
+        {
+            if(card1.getValue() == 1)
+            {
+                aceStack.add(card1);
+                stack.remove(stack.size()-1);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        Card card2 = aceStack.get(aceStack.size()-1);
+        if(card2.canBuildUpTo(card1))
+        {
+            aceStack.add(card1);
+            stack.remove(stack.size()-1);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * takes as input the position (0-3) of the ace stack we want to move the card from
+     *      and the position (0-6) of the stack we want to move the card to
+     * 
+     * returns a boolean of whether the action went through or if it was impossible
+     */
+    public boolean moveFromAceStack(int source, int target)
+    {
+        ArrayList<Card> aceStack = aceStacks.get(source);
+        ArrayList<Card> stack = stacks.get(target);
+        if(aceStack.size() == 0)
+        {
+            return false;
+        }
+        Card card1 = aceStack.get(aceStack.size()-1);
+        if(stack.size() == 0)
+        {
+            if(card1.getValue() == 13)
+            {
+                stack.add(card1);
+                aceStack.remove(aceStack.size()-1);
+            }
+            else
+            {
+                return false;
+            }
         }
         return false;
     }
@@ -117,7 +189,7 @@ public class Board
         str += "\n\n";
         for(int i = 0; i < stacks.size(); i++)
         {
-            str += "Stack: " + (i+1) + " = ";
+            str += "Stack: " + (i) + " = ";
             for(int ii = 0; ii < stacks.get(i).size(); ii++)
             {
                 str += stacks.get(i).get(ii) + " ";
