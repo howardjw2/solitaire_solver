@@ -25,6 +25,28 @@ public class Card
         suit = inSuit;
     }
 
+    // This method is called on the exposed card of a stack.
+    // If the param card can legally be added to stack, return true.
+    public boolean canBuildDownTo(Card inCard)
+    {
+        if(suit % 2 == inCard.getSuit() % 2)
+            return false;
+        if(value != inCard.getValue()+1)
+            return false;
+        return true;
+    }
+
+    // This method is called on the exposed card of an ace stack.
+    // If the param card can legally be added to ace stack, return true.
+    public boolean canBuildUpTo(Card inCard)
+    {
+        if(suit != inCard.getSuit())
+            return false;
+        if(value != inCard.getValue()-1)
+            return false;
+        return true;
+    }
+
     public int getValue()
         {return value;}
     

@@ -13,28 +13,15 @@ public class Runner
         //System.out.println(testCard);
         //System.out.println(testDeck);
         System.out.println(testBoard);
-        testBoard.getDeck().turn();
-        System.out.println(testBoard);
-        testBoard.getDeck().turn();
-        System.out.println(testBoard);
-        testBoard.getDeck().turn();
-        System.out.println(testBoard);
-        testBoard.getDeck().turn();
-        System.out.println(testBoard);
-        testBoard.getDeck().turn();
-        System.out.println(testBoard);
-        testBoard.getDeck().turn();
-        System.out.println(testBoard);
-        testBoard.getDeck().turn();
-        System.out.println(testBoard);
-        testBoard.getDeck().turn();
-        System.out.println(testBoard);
-        testBoard.getDeck().turn();
-        System.out.println(testBoard);
-        testBoard.getDeck().turn();
-        System.out.println(testBoard);
-        testBoard.getDeck().turn();
-        System.out.println(testBoard);
-        testBoard.getDeck().turn();
+        
+        System.out.println(new Card(1, 1).canBuildUpTo(new Card(2, 1)));
+        System.out.println(new Card(1, 1).canBuildUpTo(new Card(2, 2)));
+        System.out.println(new Card(1, 1).canBuildUpTo(new Card(1, 1)));
+        System.out.println(new Card(1, 1).canBuildUpTo(new Card(1, 2)));
+
+        System.out.println(new Card(2, 1).canBuildDownTo(new Card(2, 1)));
+        System.out.println(new Card(2, 1).canBuildDownTo(new Card(2, 2)));
+        System.out.println(new Card(2, 1).canBuildDownTo(new Card(1, 1)));
+        System.out.println(new Card(2, 1).canBuildDownTo(new Card(1, 2)));
     }
 }

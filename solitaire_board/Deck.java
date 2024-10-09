@@ -30,12 +30,18 @@ public class Deck
             }
         }
         this.shuffle();
-        batch = new Card[3];
+        batch = new Card[3]; //batch is the triplet of cards that can be seen by the player
+                             //where only the last of the three cards is accessible.
         batch[0] = cards.get(0);
         batch[1] = cards.get(1);
         batch[2] = cards.get(2);
     }
 
+    /**
+     * iterates through the deck one batch at a time
+     * at end of deck, batch will only contain numCards % 3 cards.
+     * when batch reaches end of deck, next turn() will restart to beginning of deck.
+     */
     public void turn()
     {
         if(batchIndex >= cards.size())
@@ -66,6 +72,7 @@ public class Deck
         }
     }
 
+    // remove and return the card at the end of the deck
     public Card pop()
     {
         Card a = cards.get(cards.size()-1);
@@ -73,6 +80,7 @@ public class Deck
         return a;
     }
 
+    //randomizes the order of the "cards" variable
     public void shuffle()
     {
         for(int i = cards.size()-1; i > 0; i--)
