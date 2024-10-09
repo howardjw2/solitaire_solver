@@ -48,6 +48,36 @@ public class Board
         }
     }
 
+    public boolean move(int source, int target)
+    {
+        ArrayList<Card> stack1 = stacks.get(source);
+        ArrayList<Card> stack2 = stacks.get(target);
+        if(stack1.size()==0) //if moving card cannot exist, stop
+            return false;
+        Card card1 = stack1.get(stack1.size()-1);
+        if(stack2.size()==0) //if empty space, only king can go here
+        {
+            if(card1.getValue() != 13)
+            {
+                return false;
+            }
+            else
+            {
+                stack2.add(card1);
+                stack1.remove(stack1.size()-1);
+                return true;
+            }
+        }
+        Card card2 = stack2.get(stack2.size()-1);
+        if(card2.canBuildDownTo(card1))
+        {
+            stack2.add(card1);
+            stack1.remove(stack1.size()-1);
+            return true;
+        }
+        return false;
+    }
+
     public Deck getDeck()
     {
         return deck;
