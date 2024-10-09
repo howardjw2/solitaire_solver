@@ -48,11 +48,25 @@ public class Board
         }
     }
 
+    public Deck getDeck()
+    {
+        return deck;
+    }
+
     public String toString()
     {
         String str = "";
+        Card[] batch = deck.getBatch();
         str += "\n";
+        for(int i = 0; i < 3; i++)
+        {
+            if(batch[i] == null)
+                break;
+            str += batch[i];
+            str += " ";
+        }
 
+        str += "\n\n";
         for(int i = 0; i < 4; i++)
         {
             if(i == 0)

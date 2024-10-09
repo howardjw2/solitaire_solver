@@ -13,5 +13,28 @@ public class Runner
         //System.out.println(testCard);
         //System.out.println(testDeck);
         System.out.println(testBoard);
+        testBoard.getDeck().turn();
+        System.out.println(testBoard);
+        testBoard.getDeck().turn();
+        System.out.println(testBoard);
+        testBoard.getDeck().turn();
+        System.out.println(testBoard);
+        testBoard.getDeck().turn();
+        System.out.println(testBoard);
+        testBoard.getDeck().turn();
+        System.out.println(testBoard);
+        testBoard.getDeck().turn();
+        System.out.println(testBoard);
+        testBoard.getDeck().turn();
+        System.out.println(testBoard);
+        testBoard.getDeck().turn();
+        System.out.println(testBoard);
+        testBoard.getDeck().turn();
+        System.out.println(testBoard);
+        testBoard.getDeck().turn();
+        System.out.println(testBoard);
+        testBoard.getDeck().turn();
+        System.out.println(testBoard);
+        testBoard.getDeck().turn();
     }
 }

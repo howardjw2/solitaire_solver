@@ -8,16 +8,19 @@ import java.util.ArrayList;
  * FUNCTIONALITY:
  *      initialize with 52 cards
  *      shuffle cards
- *      ability to iterate through the deck, 3 cards at a time
+ *      ability to iterate through the deck, 3 cards at a time (this is the "batch" variable)
  *          only the topmost of the 3 cards can be popped out of the ArrayList
  */
 
 public class Deck
 {
     private ArrayList<Card> cards;
+    private Card[] batch;
+    private int batchIndex;
 
     public Deck()
     {
+        batchIndex = 0;
         cards = new ArrayList<Card>();
         for(int i = 1; i < 14; i++)
         {
@@ -27,6 +30,40 @@ public class Deck
             }
         }
         this.shuffle();
+        batch = new Card[3];
+        batch[0] = cards.get(0);
+        batch[1] = cards.get(1);
+        batch[2] = cards.get(2);
+    }
+
+    public void turn()
+    {
+        if(batchIndex >= cards.size())
+        {
+            batchIndex = 0;
+        }
+        else
+        {
+            batchIndex += 3;
+        }
+
+        batch = new Card[3];
+        if(batchIndex >= cards.size())
+        {
+            return;
+        }
+        if(cards.size() > (0 + batchIndex))
+        {
+            batch[0] = cards.get(0 + batchIndex);
+            if(cards.size() > (1 + batchIndex))
+            {
+                batch[1] = cards.get(1 + batchIndex);
+                if(cards.size() > (2 + batchIndex))
+                {
+                    batch[2] = cards.get(2 + batchIndex);
+                }
+            }
+        }
     }
 
     public Card pop()
@@ -45,6 +82,11 @@ public class Deck
             cards.remove(index);
             cards.add(a);
         }
+    }
+
+    public Card[] getBatch()
+    {
+        return batch;
     }
 
     public String toString()
