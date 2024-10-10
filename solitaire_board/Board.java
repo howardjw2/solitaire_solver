@@ -31,11 +31,18 @@ public class Board
         {
             stacks.add(new ArrayList<Card>());
         }
-        for(int i = 0; i < 7; i++) //completely populates the board
+        for(int i = 0; i < 7; i++) //completely populates the stacks
         {
             for(int ii = 0; ii < i+1; ii++)
             {
                 stacks.get(i).add(deck.pop());
+            }
+        }
+        for(int i = 1; i < 7; i++) //hides the cards as needed
+        {
+            for(int ii = 0; ii < i; ii++)
+            {
+                stacks.get(i).get(ii).hide();
             }
         }
         for(int i = 0; i < 4; i++) //initializes empty ace stacks

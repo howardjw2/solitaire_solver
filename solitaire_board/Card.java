@@ -20,12 +20,14 @@ public class Card
     private int value;
     private int suit;
     private boolean exists;
+    private boolean isKnown;
 
     public Card(int inValue, int inSuit)
     {
         value = inValue;
         suit = inSuit;
         exists = true;
+        isKnown = true;
     }
 
     // This method is called on the exposed card of a stack.
@@ -55,6 +57,16 @@ public class Card
         exists = false;
     }
 
+    public void reveal()
+    {
+        isKnown = true;
+    }
+
+    public void hide()
+    {
+        isKnown = false;
+    }
+
     public boolean exists()
         {return exists;}
 
@@ -63,9 +75,14 @@ public class Card
     
     public int getSuit()
         {return suit;}
-    
+
+    public boolean isKnown()
+        {return isKnown;}
+
     public String toString()
     {
+        if(!isKnown)
+            return "||||||||||||||||";
         String str = "(" + value + " of ";
         if(suit == 1)      {str += "diamonds)";}
         else if(suit == 2) {str += "clubs)   ";}
