@@ -49,7 +49,7 @@ public class Deck
         if(batchIndex >= cards.size())
         {
             batchIndex = 0;
-            batchCardIndex = 0;
+            batchCardIndex = -1;
             for(int i = 0; i < cards.size(); i++)
             {
                 if(!cards.get(i).exists())
@@ -62,7 +62,7 @@ public class Deck
         else
         {
             batchIndex += 3;
-            batchCardIndex = batchIndex;
+            batchCardIndex = batchIndex-1;
         }
 
         batch = new ArrayList<Card>();
@@ -116,19 +116,24 @@ public class Deck
             return;
         }
         batch.remove(batch.size()-1);
-        //System.out.println("REMOVED " + cards.get(batchCardIndex));
+        System.out.println("REMOVED " + cards.get(batchCardIndex));
         cards.get(batchCardIndex).destroy();
         batchCardIndex--;
         if(batch.size() == 0)
         {
-            if(batchCardIndex < 0)
-                return;
+            while(!cards.get(batchCardIndex).exists())
+            {
+                batchCardIndex--;
+                if(batchCardIndex < 0)
+                    return;
+            }
             batch.add(cards.get(batchCardIndex));
         }
     }
 
     public ArrayList<Card> getBatch()
     {
+        System.out.println("Batch Card Index: " + batchCardIndex);
         return batch;
     }
 

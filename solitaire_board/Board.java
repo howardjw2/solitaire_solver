@@ -175,6 +175,7 @@ public class Board
             {
                 stack.add(card1);
                 aceStack.remove(aceStack.size()-1);
+                return true;
             }
             else
             {
@@ -197,6 +198,7 @@ public class Board
             {
                 stack.add(card1);
                 this.getDeck().shaveBatch();
+                return true;
             }
             return false;
         }
@@ -206,6 +208,7 @@ public class Board
         {
             stack.add(card1);
             this.getDeck().shaveBatch();
+            return true;
         }
         return false;
     }
@@ -223,6 +226,7 @@ public class Board
             {
                 aceStack.add(card1);
                 this.getDeck().shaveBatch();
+                return true;
             }
             return false;
         }
@@ -232,6 +236,7 @@ public class Board
         {
             aceStack.add(card1);
             this.getDeck().shaveBatch();
+            return true;
         }
         return false;
     }

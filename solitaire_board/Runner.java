@@ -24,85 +24,92 @@ public class Runner
 
         while(true)
         {
-            System.out.print("\n\n\n\n\n\n");
             System.out.println(testBoard);
             System.out.println("WHAT ACTION? (end, turn, move, raise)");
             input = sc.nextLine();
             int position;
             int depth;
-            if(input.equals("end"))
-                break;
-            
-            else if(input.equals("turn"))
+            try
             {
-                testBoard.getDeck().turn();
-            }
-            
-            else if(input.equals("move"))
-            {
-                System.out.println("Which section's exposed card should be moved?");
-                input = sc.nextLine();
-                if(input.equals("b"))
+                if(input.equals("end"))
+                    break;
+                
+                else if(input.equals("turn"))
                 {
-                    System.out.println("Which stack do you want to move this card to?");
+                    testBoard.getDeck().turn();
+                }
+                
+                else if(input.equals("move"))
+                {
+                    System.out.println("Which section's exposed card should be moved?");
                     input = sc.nextLine();
-                    if(input.equals("d") || input.equals("c") || input.equals("h") || input.equals("s"))
+                    if(input.equals("b"))
+                    {
+                        System.out.println("Which stack do you want to move this card to?");
+                        input = sc.nextLine();
+                        if(input.equals("d") || input.equals("c") || input.equals("h") || input.equals("s"))
+                        {
+                            testBoard.moveBatchToAceStack();
+                        }
+                        else
+                        {
+                            testBoard.moveBatchToStack(Integer.valueOf(input)-1);
+                        }
+                    }
+                    else if(input.equals("d") || input.equals("c") || input.equals("h") || input.equals("s"))
+                    {
+                        if(input.equals("d"))
+                            position = 0;
+                        else if(input.equals("c"))
+                            position = 1;
+                        else if(input.equals("h"))
+                            position = 2;
+                        else if(input.equals("s"))
+                            position = 3;
+                        else
+                        {
+                            System.out.println("BAD INPUT");
+                            break;
+                        }
+                        System.out.println("Which stack do you want to move this card to?");
+                        input = sc.nextLine();
+
+                        testBoard.moveAceStackToStack(position, Integer.valueOf(input)-1);
+                    }
+
+                    else
+                    {
+                        position = Integer.valueOf(input);
+
+                        System.out.println("How many cards in this stack do you want to move?");
+                        depth = Integer.valueOf(sc.nextLine());
+
+                        System.out.println("Which stack do you want to move this card to?");
+                        input = sc.nextLine();
+                        testBoard.moveStackToStack(position-1, Integer.valueOf(input)-1, depth-1);
+                    }
+                    
+                }
+
+                else if(input.equals("raise"))
+                {
+                    System.out.println("Which section's exposed card should be raised to an ace stack?");
+                    input = sc.nextLine();
+                    if(input.equals("b"))
                     {
                         testBoard.moveBatchToAceStack();
                     }
                     else
                     {
-                        testBoard.moveBatchToStack(Integer.valueOf(input)-1);
+                        testBoard.moveStackToAceStack(Integer.valueOf(input)-1);
                     }
                 }
-                else if(input.equals("d") || input.equals("c") || input.equals("h") || input.equals("s"))
-                {
-                    if(input.equals("d"))
-                        position = 0;
-                    else if(input.equals("c"))
-                        position = 1;
-                    else if(input.equals("h"))
-                        position = 2;
-                    else if(input.equals("s"))
-                        position = 3;
-                    else
-                    {
-                        System.out.println("BAD INPUT");
-                        break;
-                    }
-                    System.out.println("Which stack do you want to move this card to?");
-                    input = sc.nextLine();
-
-                    testBoard.moveAceStackToStack(position, Integer.valueOf(input)-1);
-                }
-
-                else
-                {
-                    position = Integer.valueOf(input);
-
-                    System.out.println("How many cards in this stack do you want to move?");
-                    depth = Integer.valueOf(sc.nextLine());
-
-                    System.out.println("Which stack do you want to move this card to?");
-                    input = sc.nextLine();
-                    testBoard.moveStackToStack(position-1, Integer.valueOf(input)-1, depth-1);
-                }
-                
             }
-
-            else if(input.equals("raise"))
+            catch(Exception e)
             {
-                System.out.println("Which section's exposed card should be raised to an ace stack?");
-                input = sc.nextLine();
-                if(input.equals("b"))
-                {
-                    testBoard.moveBatchToAceStack();
-                }
-                else
-                {
-                    testBoard.moveStackToAceStack(Integer.valueOf(input)-1);
-                }
+                System.out.println("BAD INPUT");
             }
+            System.out.print("\n\n\n\n\n\n");
         }
 
         /*
