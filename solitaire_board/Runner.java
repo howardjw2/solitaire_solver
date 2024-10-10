@@ -15,9 +15,92 @@ public class Runner
         Game testGame = new Game();
         //System.out.println(testCard);
         //System.out.println(testDeck);
-        String input1;
-        String input2;
-        System.out.println(testBoard);
+        String input;
+        //System.out.println(testBoard);
+
+        //testBoard.getDeck().shaveBatch();
+
+        //System.out.println(testBoard);
+
+        while(true)
+        {
+            System.out.println(testBoard);
+            System.out.println("WHAT ACTION? (end, turn, move, raise)");
+            input = sc.nextLine();
+            int position;
+            if(input.equals("end"))
+                break;
+            
+            else if(input.equals("turn"))
+            {
+                testBoard.getDeck().turn();
+            }
+            
+            else if(input.equals("move"))
+            {
+                System.out.println("Which section's exposed card should be moved?");
+                input = sc.nextLine();
+                if(input.equals("b"))
+                {
+                    System.out.println("Which stack do you want to move this card to?");
+                    input = sc.nextLine();
+                    if(input.equals("d") || input.equals("c") || input.equals("h") || input.equals("s"))
+                    {
+                        testBoard.moveBatchToAceStack();
+                    }
+                    else
+                    {
+                        testBoard.moveBatchToStack(Integer.valueOf(input)-1);
+                    }
+                }
+                else if(input.equals("d") || input.equals("c") || input.equals("h") || input.equals("s"))
+                {
+                    if(input.equals("d"))
+                        position = 0;
+                    else if(input.equals("c"))
+                        position = 1;
+                    else if(input.equals("h"))
+                        position = 2;
+                    else if(input.equals("s"))
+                        position = 3;
+                    else
+                    {
+                        System.out.println("BAD INPUT");
+                        break;
+                    }
+                    System.out.println("Which stack do you want to move this card to?");
+                    input = sc.nextLine();
+
+                    testBoard.moveAceStackToStack(position, Integer.valueOf(input)-1);
+                }
+
+                else
+                {
+                    position = Integer.valueOf(input);
+                    System.out.println("Which stack do you want to move this card to?");
+
+                    input = sc.nextLine();
+                    testBoard.moveStackToStack(position-1, Integer.valueOf(input)-1);
+                }
+                
+            }
+
+            else if(input.equals("raise"))
+            {
+                System.out.println("Which section's exposed card should be raised to an ace stack?");
+                input = sc.nextLine();
+                if(input.equals("b"))
+                {
+                    testBoard.moveBatchToAceStack();
+                }
+                else
+                {
+                    testBoard.moveStackToAceStack(Integer.valueOf(input)-1);
+                }
+            }
+        }
+
+        /*
         while(true)
         {
             System.out.println("MOVING STACK TO STACK:");
@@ -48,7 +131,7 @@ public class Runner
             testBoard.elevate(Integer.valueOf(input1));
             System.out.println(testBoard);
         }
-        
+
         while(true)
         {
             System.out.println("MOVING ACE STACK TO STACK:");
@@ -66,5 +149,6 @@ public class Runner
             testBoard.moveFromAceStack(Integer.valueOf(input1), Integer.valueOf(input2));
             System.out.println(testBoard);
         }
+        */
     }
 }
