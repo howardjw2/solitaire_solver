@@ -19,10 +19,13 @@ public class Card
 {
     private int value;
     private int suit;
+    private boolean exists;
+
     public Card(int inValue, int inSuit)
     {
         value = inValue;
         suit = inSuit;
+        exists = true;
     }
 
     // This method is called on the exposed card of a stack.
@@ -46,6 +49,14 @@ public class Card
             return false;
         return true;
     }
+
+    public void destroy()
+    {
+        exists = false;
+    }
+
+    public boolean exists()
+        {return exists;}
 
     public int getValue()
         {return value;}

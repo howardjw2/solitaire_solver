@@ -42,10 +42,6 @@ public class Board
         {
             aceStacks.add(new ArrayList<Card>());
         }
-        for(int i = 0; i < 4; i++) //adds 0-value cards to ace stacks for ease of programming
-        {
-            aceStacks.get(i).add(new Card(0, i+1));
-        }
     }
 
     /**
@@ -54,7 +50,7 @@ public class Board
      * 
      * returns a boolean of whether the action went through or if it was impossible
      */
-    public boolean move(int source, int target)
+    public boolean moveStackToStack(int source, int target)
     {
         ArrayList<Card> stack1 = stacks.get(source);
         ArrayList<Card> stack2 = stacks.get(target);
@@ -90,7 +86,7 @@ public class Board
      * 
      * returns a boolean of whether the action went through or if it was impossible
      */
-    public boolean elevate(int source) //move a card from stack to the appropriate ace stack
+    public boolean moveStackToAceStack(int source) //move a card from stack to the appropriate ace stack
     {
         ArrayList<Card> stack = stacks.get(source);
         if(stack.size()==0)
@@ -126,7 +122,7 @@ public class Board
      * 
      * returns a boolean of whether the action went through or if it was impossible
      */
-    public boolean moveFromAceStack(int source, int target)
+    public boolean moveAceStackToStack(int source, int target)
     {
         ArrayList<Card> aceStack = aceStacks.get(source);
         ArrayList<Card> stack = stacks.get(target);
@@ -150,6 +146,58 @@ public class Board
         return false;
     }
 
+    public boolean moveBatchToStack(int target)
+    {
+        if(deck.getBatch().size() == 0)
+            return false;
+
+        Card card1 = deck.getBatchCard();
+        ArrayList<Card> stack = stacks.get(target);
+        if(stack.size() == 0)
+        {
+            if(card1.getValue() == 13)
+            {
+                stack.add(card1);
+                this.getDeck().shaveBatch();
+            }
+            return false;
+        }
+
+        Card card2 = stack.get(stack.size()-1);
+        if(card2.canBuildDownTo(card1))
+        {
+            stack.add(card1);
+            this.getDeck().shaveBatch();
+        }
+        return false;
+    }
+
+    public boolean moveBatchToAceStack()
+    {
+        if(deck.getBatch().size() == 0)
+            return false;
+
+        Card card1 = deck.getBatchCard();
+        ArrayList<Card> aceStack = aceStacks.get(card1.getSuit()-1);
+        if(aceStack.size() == 0)
+        {
+            if(card1.getValue() == 1)
+            {
+                aceStack.add(card1);
+                this.getDeck().shaveBatch();
+            }
+            return false;
+        }
+
+        Card card2 = aceStack.get(aceStack.size()-1);
+        if(card2.canBuildUpTo(card1))
+        {
+            aceStack.add(card1);
+            this.getDeck().shaveBatch();
+        }
+        return false;
+    }
+
     public Deck getDeck()
     {
         return deck;
@@ -158,13 +206,11 @@ public class Board
     public String toString()
     {
         String str = "";
-        Card[] batch = deck.getBatch();
+        ArrayList<Card> batch = deck.getBatch();
         str += "\n";
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < batch.size(); i++)
         {
-            if(batch[i] == null)
-                break;
-            str += batch[i];
+            str += batch.get(i);
             str += " ";
         }
 
@@ -189,7 +235,7 @@ public class Board
         str += "\n\n";
         for(int i = 0; i < stacks.size(); i++)
         {
-            str += "Stack: " + (i) + " = ";
+            str += "Stack: " + (i+1) + " = ";
             for(int ii = 0; ii < stacks.get(i).size(); ii++)
             {
                 str += stacks.get(i).get(ii) + " ";
