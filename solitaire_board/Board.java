@@ -53,17 +53,24 @@ public class Board
 
     /**
      * takes as input the position (0-6) of the stack we want to move the card from
-     *      and the position (0-6) of the stack we want to move the card to
+     *      and the position (0-6) of the stack we want to move the card to.
+     *      the depth input is how much of the stack you try to move (0 means topmost card)
      * 
      * returns a boolean of whether the action went through or if it was impossible
      */
-    public boolean moveStackToStack(int source, int target)
+    public boolean moveStackToStack(int source, int target, int depth)
     {
         ArrayList<Card> stack1 = stacks.get(source);
         ArrayList<Card> stack2 = stacks.get(target);
         if(stack1.size()==0) //if moving card cannot exist, stop
             return false;
-        Card card1 = stack1.get(stack1.size()-1);
+
+        if(depth >= stack1.size())
+            return false;
+        Card card1 = stack1.get(stack1.size()-1-depth);
+        if(!card1.isKnown())
+            return false;
+
         if(stack2.size()==0) //if empty space, only king can go here
         {
             if(card1.getValue() != 13)

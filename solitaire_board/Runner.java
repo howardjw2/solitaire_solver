@@ -24,10 +24,12 @@ public class Runner
 
         while(true)
         {
+            System.out.print("\n\n\n\n\n\n");
             System.out.println(testBoard);
             System.out.println("WHAT ACTION? (end, turn, move, raise)");
             input = sc.nextLine();
             int position;
+            int depth;
             if(input.equals("end"))
                 break;
             
@@ -77,10 +79,13 @@ public class Runner
                 else
                 {
                     position = Integer.valueOf(input);
-                    System.out.println("Which stack do you want to move this card to?");
 
+                    System.out.println("How many cards in this stack do you want to move?");
+                    depth = Integer.valueOf(sc.nextLine());
+
+                    System.out.println("Which stack do you want to move this card to?");
                     input = sc.nextLine();
-                    testBoard.moveStackToStack(position-1, Integer.valueOf(input)-1);
+                    testBoard.moveStackToStack(position-1, Integer.valueOf(input)-1, depth-1);
                 }
                 
             }
