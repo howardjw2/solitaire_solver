@@ -79,16 +79,34 @@ public class Board
             }
             else
             {
-                stack2.add(card1);
-                stack1.remove(stack1.size()-1);
+                for(int i = 0; i < depth+1; i++)
+                {
+                    stack2.add(stack1.get(stack1.size()-depth-1 + i));
+                }
+                for(int i = 0; i < depth+1; i++)
+                {
+                    stack1.remove(stack1.size()-1);
+                }
+                if(stack1.size() > 0)
+                    if(!stack1.get(stack1.size()-1).isKnown())
+                        stack1.get(stack1.size()-1).reveal();
                 return true;
             }
         }
         Card card2 = stack2.get(stack2.size()-1);
         if(card2.canBuildDownTo(card1))
         {
-            stack2.add(card1);
-            stack1.remove(stack1.size()-1);
+            for(int i = 0; i < depth+1; i++)
+            {
+                stack2.add(stack1.get(stack1.size()-depth-1 + i));
+            }
+            for(int i = 0; i < depth+1; i++)
+            {
+                stack1.remove(stack1.size()-1);
+            }
+            if(stack1.size() > 0)
+                    if(!stack1.get(stack1.size()-1).isKnown())
+                        stack1.get(stack1.size()-1).reveal();
             return true;
         }
         return false;
@@ -113,6 +131,9 @@ public class Board
             {
                 aceStack.add(card1);
                 stack.remove(stack.size()-1);
+                if(stack.size() > 0)
+                    if(!stack.get(stack.size()-1).isKnown())
+                        stack.get(stack.size()-1).reveal();
                 return true;
             }
             else
@@ -125,6 +146,9 @@ public class Board
         {
             aceStack.add(card1);
             stack.remove(stack.size()-1);
+            if(stack.size() > 0)
+                    if(!stack.get(stack.size()-1).isKnown())
+                        stack.get(stack.size()-1).reveal();
             return true;
         }
         return false;
