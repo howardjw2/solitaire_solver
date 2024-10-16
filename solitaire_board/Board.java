@@ -185,6 +185,12 @@ public class Board
         return false;
     }
 
+    /**
+     * takes as input the position (0-6) of the stack we want to move the card to.
+     * the card will come from the current batch's exposed card
+     * 
+     * returns a boolean of whether the action went through or if it was impossible
+     */
     public boolean moveBatchToStack(int target)
     {
         if(deck.getBatch().size() == 0)
@@ -213,6 +219,11 @@ public class Board
         return false;
     }
 
+    /**
+     * takes no input, tries to move the current batch's exposed card to its proper ace stack
+     * 
+     * returns a boolean of whether the action went through or if it was impossible
+     */
     public boolean moveBatchToAceStack()
     {
         if(deck.getBatch().size() == 0)
@@ -258,22 +269,22 @@ public class Board
         }
 
         str += "\n\n";
-        for(int i = 0; i < 4; i++)
-        {
-            if(i == 0)
-                str += "Diamonds = ";
-            else if(i == 1)
-                str += "Clubs    = ";
-            else if(i == 2)
-                str += "Hearts   = ";
-            else if(i == 3)
-                str += "Spades   = ";
-            for(int ii = 0; ii < aceStacks.get(i).size(); ii++)
-            {
-                str += aceStacks.get(i).get(ii) + " ";
-            }
-            str += "\n";
-        }
+        if(aceStacks.get(0).size() > 0)
+            str += "Diamonds = " + aceStacks.get(0).get(aceStacks.get(0).size()-1) + "\n";
+        else
+            str += "Diamonds = \n";
+        if(aceStacks.get(1).size() > 0)
+            str += "Clubs    = " + aceStacks.get(1).get(aceStacks.get(1).size()-1) + "\n";
+        else
+            str += "Clubs    = \n";
+        if(aceStacks.get(2).size() > 0)
+            str += "Hearts   = " + aceStacks.get(2).get(aceStacks.get(2).size()-1) + "\n";
+        else
+            str += "Hearts   = \n";
+        if(aceStacks.get(3).size() > 0)
+            str += "Spades   = " + aceStacks.get(3).get(aceStacks.get(3).size()-1) + "\n";
+        else
+            str += "Spades   = \n";
 
         str += "\n\n";
         for(int i = 0; i < stacks.size(); i++)

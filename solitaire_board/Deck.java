@@ -17,14 +17,14 @@ public class Deck
     private ArrayList<Card> cards;
     private ArrayList<Card> batch; //this contains the ~3 cards from the deck that are shown to the player at a time
     private int batchIndex; //this variable starts at position 0 and iterates through the deck 3 cards at a time
-    private int batchCardIndex; //this variable keeps track of the position of the batch's exposed card
+    private int batchCardIndex; //this variable keeps track of the position of the batch's exposed card that can be moved
 
     public Deck()
     {
         batchIndex = 0;
         batchCardIndex = 2;
         cards = new ArrayList<Card>();
-        for(int i = 1; i < 14; i++)
+        for(int i = 1; i < 14; i++) //populate board
         {
             for(int ii = 1; ii < 5; ii++)
             {

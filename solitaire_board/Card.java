@@ -19,8 +19,8 @@ public class Card
 {
     private int value;
     private int suit;
-    private boolean exists;
-    private boolean isKnown;
+    private boolean exists;  //this is turned to be false if the card is slated to be removed from deck.
+    private boolean isKnown; //this is the value of whether the card has been uncovered by the player.
 
     public Card(int inValue, int inSuit)
     {
@@ -52,16 +52,19 @@ public class Card
         return true;
     }
 
+    // slate this card to be removed from the deck when the batchIndex variable of Deck.java loops back
     public void destroy()
     {
         exists = false;
     }
 
+    // triggered when a hidden card is uncovered
     public void reveal()
     {
         isKnown = true;
     }
 
+    // used at the initialization of the board to cover the hidden cards
     public void hide()
     {
         isKnown = false;
